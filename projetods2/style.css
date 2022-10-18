@@ -7,7 +7,7 @@
   font-family: 'Mukta', sans-serif;
 	height:100vh;
 	min-height:550px;
-	background-image: url(https://img.freepik.com/fotos-premium/campo-agricola-semeado-com-graos-de-inverno-no-outono_340015-135.jpg?w=2000);
+	background-image: url(./images/login.jpg);
 	background-repeat: no-repeat;
 	background-size:cover;
 	background-position:center;
@@ -158,8 +158,9 @@ a{
 }
 
 .textolado{
-    margin-right: 80px;
-    font-size: 40px;
+    margin-right: 60px;
+    top: 15px;
+    font-size: 100px;
     font-family: 'Bebas Neue', cursive;
 }
 .login{
@@ -408,4 +409,10 @@ h5{
 .editaform{
     background-color: white;
     border-radius: 10px;
+}
+
+.logoo{
+    width: 200px;
+    height: 200px;
+    color: rgba(73, 184, 0, 0.9)
 }

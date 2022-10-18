@@ -11,13 +11,14 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="script.js" type="text/javascript"></script>
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <title>Agro Imperial</title>
+    <title>Tecno Power</title>
 </head>
 
 <body class="backgr">
         <div class="container-fluid login-reg-panel bg-dark">
             <div class="register-info-box mt-5 textolado">
-                <a class="text-light">Agro Imperial Casa Agrícola</a>
+                <a class="text-light">Tecno</a><br>
+                <a class="text-light">Power</a>
             </div>
 
             <div class="white-panel">

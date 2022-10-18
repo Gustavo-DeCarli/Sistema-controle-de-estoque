@@ -14,7 +14,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/nav.png">
-    <title>Agro Imperial</title>
+    <title>Tecno Power</title>
 </head>
 
 <body>
@@ -49,20 +49,20 @@
                     <script>
                         let ctx = document.getElementById('myChart').getContext('2d');
                         let chart = new Chart(ctx, {
-                            type: 'doughnut',
+                            type: 'bar',
                             data: {
                                 labels: ['Vendas mês anterior', 'Vendas mês atual'],
                                 datasets: [{
                                     label: 'Nº de chamados',
                                     data: [2, 8],
                                     backgroundColor: [
-                                        'rgba(26, 150, 37, 1)',
-                                        'rgba(202, 108, 0, 1)',
+                                        'rgba(255,90,0, 0.9)',
+                                        'rgba(73, 184, 0, 1)',
                                     ],
                                     borderColor: [
                                         'rgba(0,0,0, 1)'
                                     ],
-                                    borderWidth: 0.5
+                                    borderWidth: 2.5
                                 }]
                             },
                             options: {

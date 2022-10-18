@@ -12,8 +12,8 @@
     <script src="script.js" type="text/javascript"></script>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="images/nav.png">
-    <title>Agro Imperial</title>
+    <link rel="icon" type="image/x-icon" href="images/nav.png" sizes="32x32">
+    <title>Tecno Power</title>
 </head>
 
 <body>
@@ -43,12 +43,16 @@
             </nav>
             <table class="table align-middle">
                 <thead>
-                    <tr>
+                    <tr class='text-center'>
                         <th scope="col">ID</th>
                         <th scope="col">Categoria</th>
                     </tr>
                 </thead>
                 <tbody>
+                <tr class='text-center'>
+                        <td scope="col">1</td>
+                        <td scope="col">Comidas</td>
+                    </tr>
                 </tbody>
                 <tfoot>
                 </tfoot>
