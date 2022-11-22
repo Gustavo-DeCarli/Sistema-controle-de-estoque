@@ -49,12 +49,56 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr class='text-center'>
-                        <td scope="col">1</td>
-                        <td scope="col">Comidas</td>
-                    </tr>
+                <?php
+                    require "lib/conn.php";
+                    if (isset($_GET['pagina'])) {
+                        $pagina = $_GET['pagina'];
+                        $pc = $pagina;
+                    } else {
+                        $pc = 1;
+                    }
+                    $total_reg = "10";
+                    $inicio = $pc - 1;
+                    $inicio = $inicio * $total_reg;
+                    $connection = DB::getInstance();
+                    if (isset($_POST['busca'])) {
+                    $b1 = $_POST['busca'];
+                    if($_POST['busca'] == ''){
+                        $stmt = $connection->query("SELECT * FROM categorias LIMIT $inicio,$total_reg");
+                    }else{
+                        $stmt = $connection->query("SELECT * FROM categorias WHERE nome='$b1' LIMIT $inicio,$total_reg");
+                    }
+                    }else{
+                    $stmt = $connection->query("SELECT * FROM categorias LIMIT $inicio,$total_reg");
+                    }
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $dados11 = $stmt->fetchAll();
+                    foreach ($dados11 as $cat) {
+                    ?>
+                        <tr>
+                            <td><?php echo $cat['id'] ?></td>
+                            <td><?php echo $cat['nomec'] ?></td>
+                            <td><form action='lib/delcat.php' method='POST'><button id='idcat' name='idcat' class="btn btn-danger p-1" type='submit' value="<?php echo $cat['id']?>">Deletar</button></form></td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
                 <tfoot>
+                <tr>
+                        <?php
+                        $tr = $stmt->rowCount();
+                        $tp = $tr / $total_reg;
+                        $anterior = $pc - 1;
+                        $proximo = $pc + 1;
+                        if ($pc > 1) {
+                            echo "<td class='fot' ></td>";
+                            echo "<td class='fot' ></td>";
+                            echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$anterior'>Anterior</a></td>";
+                        }
+                        if ($pc < $tr) {
+                            echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$proximo'>Próxima</a></td>";
+                        }
+                        ?>
+                    <tr>
                 </tfoot>
             </table>
         </div>
@@ -84,5 +128,25 @@
       </div>
     </div>
   </div>
+  <script>
+    const baseUrl = `//localhost/projetods2/lib/`
+    onload = async () => {
+    modal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
+    btnSalvar2 = document.getElementById("salvar2")
+    btnSalvar2.addEventListener("click", async () => {
+
+        const nomecat = document.getElementById("nomecat").value
+
+        const body = new FormData()
+        body.append('nomecat', nomecat)
+
+        const response = await fetch(`${baseUrl}addcat.php`, {
+            method: "POST",
+            body
+        })
+        modal2.hide();
+        window.location.href = "categorias.php"
+    })}
+  </script>
 </body>
 </html>

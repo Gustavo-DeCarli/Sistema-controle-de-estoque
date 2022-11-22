@@ -31,6 +31,8 @@ a{
     background-color: rgba(236, 48, 20, 0.9);
 }
 .white-panel{
+    border: 2px;
+    border-color: #2c7715;
     background-color: rgba(255,255, 255, 1);
     height:500px;
     position:absolute;
@@ -159,7 +161,7 @@ a{
 
 .textolado{
     margin-right: 60px;
-    top: 15px;
+    top: 5px;
     font-size: 100px;
     font-family: 'Bebas Neue', cursive;
 }
@@ -296,7 +298,7 @@ padding:0;
 }
 .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
 color:#fff;
-background-color:#679459;
+background-color:#297F38;
 }
 .area {
 float: left;
@@ -324,7 +326,7 @@ height: 100%;
 }
 
 body{
-    background-color: #679459;
+    background-color: #297F38;
 }
 
 .rodape{
@@ -343,7 +345,7 @@ body{
 }
 
 .botao:hover{
-    color: #679459;
+    color: #297F38;
 }
 
 .buscar{
@@ -352,7 +354,7 @@ body{
 }
 
 .buscar:hover{
-    color: #679459;
+    color: #297F38;
 }
 
 .fot{

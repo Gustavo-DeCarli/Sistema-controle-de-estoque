@@ -25,16 +25,18 @@
         <div class="painel">
             <h1 class="titulo">Painel de controle</h1>
             <div class="teste">
-                
+            <?php
+                include 'lib/stats.php'
+                ?>
                 <h4>Produtos X Categorias</h4>
-                <h5>Produtos Cadastrados:  </h5>
-                <h5>Categorias Cadastradas:  </h5>
+                <h5>Produtos Cadastrados: <?php echo $prods ?> </h5>
+                <h5>Categorias Cadastradas: <?php echo $cats ?> </h5>
                 <div class='mt-3 container'>
-                    <h4>Porcentagem de aumento dos produtos</h4>
+                    <h4>Reajuste valor dos produtos</h4>
                     <form method="POST" action='lib/porc.php'>
                         <div class='row'>
                             <div class="ms-2 col">
-                                <input style="width:150px;" class='form-control' type="number" name='porcentagem'>
+                                <input style="width:155px;" class='form-control' type="number" name='porcentagem' placeholder="Porcentagem %">
                             </div>
                             <div class="ms-2 col">
                                 <input class='buscar btn' type='submit' value='Atualizar' name='envform'>
@@ -54,7 +56,7 @@
                                 labels: ['Vendas mês anterior', 'Vendas mês atual'],
                                 datasets: [{
                                     label: 'Nº de chamados',
-                                    data: [2, 8],
+                                    data: [<?php echo $valor2 ?>, <?php echo $valor1 ?>],
                                     backgroundColor: [
                                         'rgba(255,90,0, 0.9)',
                                         'rgba(73, 184, 0, 1)',

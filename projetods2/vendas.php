@@ -52,16 +52,58 @@
           </tr>
         </thead>
         <tbody>
+        <?php
+                    require "lib/conn.php";
+                    if (isset($_GET['pagina'])) {
+                        $pagina = $_GET['pagina'];
+                        $pc = $pagina;
+                    } else {
+                        $pc = 1;
+                    }
+                    $total_reg = "10";
+                    $inicio = $pc - 1;
+                    $inicio = $inicio * $total_reg;
+                    $connection = DB::getInstance();
+                    if(isset($_POST['buscanfe'])){
+                        $busca = $_POST['buscanfe'];
+                        if($busca != ''){
+                        $stmt = $connection->query("SELECT * FROM vendas WHERE notafisc='$busca' LIMIT $inicio,$total_reg");
+                        }elseif($busca == ''){
+                        $stmt = $connection->query("SELECT * FROM vendas LIMIT $inicio,$total_reg");  
+                        }
+                    }else{
+                    $stmt = $connection->query("SELECT * FROM vendas LIMIT $inicio,$total_reg");
+                    }
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $dados111 = $stmt->fetchAll();
+                    foreach ($dados111 as $ven) {
+                    ?>
           <tr class='text-center'>
-            <td class=''>3456657</td>
-            <td scope="col">2</td>
-            <td scope="col">R$ 12,55</td>
-            <td scope="col">12/05/2023</td>
+            <td><?php echo $ven['notafisc'] ?></td>
+            <td scope="col"><?php echo $ven['quantidade'] ?></td>
+            <td scope="col">R$ <?php echo $ven['valort'] ?></td>
+            <td scope="col"><?php echo $ven['data'] ?></td>
+            <td><form action='lib/delvenda.php' method="POST"><button class="btn btn-danger p-1" id='delven' name='delven' type='submit' value="<?php echo $ven['id']?>">Deletar</button></form></td>
+
           </tr>
+          <?php } ?>
         </tbody>
         <tfoot>
           <tr>
-
+          <?php
+                        $tr = $stmt->rowCount();
+                        $tp = $tr / $total_reg;
+                        $anterior = $pc - 1;
+                        $proximo = $pc + 1;
+                        if ($pc > 1) {
+                            echo "<td class='fot' ></td>";
+                            echo "<td class='fot' ></td>";
+                            echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$anterior'>Anterior</a></td>";
+                        }
+                        if ($pc < $tr) {
+                            echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$proximo'>Próxima</a></td>";
+                        }
+                        ?>
           <tr>
         </tfoot>
       </table>
@@ -100,7 +142,30 @@
       </div>
     </div>
   </div>
+  <script>
+    const baseUrl = `//localhost/projetods2/lib/`
+    onload = async () => {
+    modal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
+    btnSalvar2 = document.getElementById("salvar2")
+    btnSalvar2.addEventListener("click", async () => {
 
+        const codprod = document.getElementById("codprod").value
+        const nfe = document.getElementById("nfe").value
+        const quantidade = document.getElementById("quantidade").value
+
+        const body = new FormData()
+        body.append('codprod', codprod)
+        body.append('nfe', nfe)
+        body.append('quantidade', quantidade)
+
+        const response = await fetch(`${baseUrl}addvenda.php`, {
+            method: "POST",
+            body
+        })
+        modal2.hide();
+        window.location.href = "vendas.php"
+    })}
+  </script>
 </body>
 
 </html>
