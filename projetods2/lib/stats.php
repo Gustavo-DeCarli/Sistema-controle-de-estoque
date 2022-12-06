@@ -23,6 +23,12 @@ $dados2 = $consulta2->fetch();
 $valor2 = $dados2['vendas'];
 
 $connection = DB::getInstance();
+$consulta = $connection->prepare("SELECT COUNT(id) as vendas, data FROM vendas WHERE data between ('$ano1/01/01') AND ('$ano1/12/31')");
+$consulta->execute();
+$dados3 = $consulta->fetch();
+$valor3 = $dados['vendas'];
+
+$connection = DB::getInstance();
 $consulta3 = $connection->prepare("SELECT COUNT(cod) as produtos FROM produtos");
 $consulta3->execute();
 $dados3 = $consulta3->fetch();

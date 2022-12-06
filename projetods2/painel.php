@@ -62,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
                             data: {
                                 labels: ['Vendas mês anterior', 'Vendas mês atual'],
                                 datasets: [{
-                                    label: 'Nº de chamados',
+                                    label: 'Nº de vendas',
                                     data: [<?php echo $valor2 ?>, <?php echo $valor1 ?>],
                                     backgroundColor: [
                                         'rgba(255,90,0, 0.9)',

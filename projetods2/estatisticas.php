@@ -21,57 +21,59 @@
     <div class='inicio'>
         <div class='mx-auto fundo'>
             <div class="painel">
+            <?php
+                include 'lib/stats.php'
+                ?>
                 <h1 class="titulo">Estatísticas</h1>
                 <div class='row'>
                     <div class="col grafchart">
                         <h5>Mês Anterios X Mês Atual</h5>
                         <canvas id="myChart">
-                            <script>
-                                let ctx = document.getElementById('myChart').getContext('2d');
-                                let chart = new Chart(ctx, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ['Vendas mês anterior', 'Vendas mês atual'],
-                                        datasets: [{
-                                            label: 'Nº de chamados',
-                                            data: [2, 3],
-                                            backgroundColor: [
-                                                'rgba(255,90,0, 0.9)',
-                                                'rgba(73, 184, 0, 1)',
-                                            ],
-                                            borderColor: [
-                                                'rgba(0,0,0, 1)'
-                                            ],
-                                            borderWidth: 2.5
-                                        }]
-                                    },
-                                    options: {
-                                        elements: {
-                                            line: {
-                                                tension: 0
-                                            }
-                                        }
+                    <script>
+                        let ctx = document.getElementById('myChart').getContext('2d');
+                        let chart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Vendas mês anterior', 'Vendas mês atual'],
+                                datasets: [{
+                                    label: 'Relação de vendas',
+                                    data: [<?php echo $valor2 ?>, <?php echo $valor1 ?>],
+                                    backgroundColor: [
+                                        'rgba(255,90,0, 0.9)',
+                                        'rgba(73, 184, 0, 1)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(0,0,0, 1)'
+                                    ],
+                                    borderWidth: 2.5
+                                }]
+                            },
+                            options: {
+                                elements: {
+                                    line: {
+                                        tension: 0
                                     }
-                                });
-                            </script>
-                        </canvas>
+                                }
+                            }
+                        });
+                    </script>
+                </canvas>
                     </div>
 
                     <div class="col grafchart">
-                        <h5>Mês Anterios X Mês Atual</h5>
+                        <h5>Vendas Do Ano</h5>
                         <canvas id="myChart2">
                             <script>
                                 let ctx2 = document.getElementById('myChart2').getContext('2d');
                                 let chart2 = new Chart(ctx2, {
                                     type: 'bar',
                                     data: {
-                                        labels: ['Vendas mês anterior', 'Vendas mês atual'],
+                                        labels: ['Vendas Ano Atual'],
                                         datasets: [{
-                                            label: 'Nº de chamados',
-                                            data: [2, 3],
+                                            label: 'Nº de vendas',
+                                            data: [<?php echo $valor3; ?>],
                                             backgroundColor: [
-                                                'rgba(255,90,0, 0.9)',
-                                                'rgba(73, 184, 0, 1)',
+                                                'rgba(0, 174, 255, 0.9)',
                                             ],
                                             borderColor: [
                                                 'rgba(0,0,0, 1)'
