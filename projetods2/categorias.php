@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<script type="text/javascript">';
+    echo 'alert("Login necessário");';
+    echo 'window.location.href = "index.php";';
+    echo '</script>';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="PT-br">
 
@@ -27,7 +36,7 @@
                 <form action="categorias.php" method='POST' class="container-fluid justify-content-start">
                     <div class="col-auto">
                         <button id="novo" type="button" class="botao btn " data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                            Adicionar Produto 
+                            Adicionar Produto
                         </button>
                     </div>
                     <div class="ms-5 col-auto">
@@ -49,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php
+                    <?php
                     require "lib/conn.php";
                     if (isset($_GET['pagina'])) {
                         $pagina = $_GET['pagina'];
@@ -62,28 +71,30 @@
                     $inicio = $inicio * $total_reg;
                     $connection = DB::getInstance();
                     if (isset($_POST['busca'])) {
-                    $b1 = $_POST['busca'];
-                    if($_POST['busca'] == ''){
+                        $b1 = $_POST['busca'];
+                        if ($_POST['busca'] == '') {
+                            $stmt = $connection->query("SELECT * FROM categorias LIMIT $inicio,$total_reg");
+                        } else {
+                            $stmt = $connection->query("SELECT * FROM categorias WHERE nome='$b1' LIMIT $inicio,$total_reg");
+                        }
+                    } else {
                         $stmt = $connection->query("SELECT * FROM categorias LIMIT $inicio,$total_reg");
-                    }else{
-                        $stmt = $connection->query("SELECT * FROM categorias WHERE nome='$b1' LIMIT $inicio,$total_reg");
-                    }
-                    }else{
-                    $stmt = $connection->query("SELECT * FROM categorias LIMIT $inicio,$total_reg");
                     }
                     $stmt->setFetchMode(PDO::FETCH_ASSOC);
                     $dados11 = $stmt->fetchAll();
                     foreach ($dados11 as $cat) {
                     ?>
-                        <tr>
+                        <tr class='text-center'>
                             <td><?php echo $cat['id'] ?></td>
                             <td><?php echo $cat['nomec'] ?></td>
-                            <td><form action='lib/delcat.php' method='POST'><button id='idcat' name='idcat' class="btn btn-danger p-1" type='submit' value="<?php echo $cat['id']?>">Deletar</button></form></td>
+                            <td>
+                                <form action='lib/delcat.php' method='POST'><button id='idcat' name='idcat' class="btn btn-danger p-1" type='submit' value="<?php echo $cat['id'] ?>">Deletar</button></form>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
                 <tfoot>
-                <tr>
+                    <tr>
                         <?php
                         $tr = $stmt->rowCount();
                         $tp = $tr / $total_reg;
@@ -105,48 +116,50 @@
 
     </div>
 
-                            <!-- MODAL NOVA CATEGORIA -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Nova Categoria</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="id"/>
-          <div class="mb-3">
-            <label for="cod" class="form-label">Nome da Categoria</label>
-            <input type="text" class="form-control" id="nomecat" placeholder="Nome da Categoria">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button id="salvar2" type="button" class="btn btn-success">Salvar</button>
-        </div>
+    <!-- MODAL NOVA CATEGORIA -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nova Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id" />
+                    <div class="mb-3">
+                        <label for="cod" class="form-label">Nome da Categoria</label>
+                        <input type="text" class="form-control" id="nomecat" placeholder="Nome da Categoria">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="salvar2" type="button" class="btn btn-success">Salvar</button>
+                </div>
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <script>
-    const baseUrl = `//localhost/projetods2/lib/`
-    onload = async () => {
-    modal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
-    btnSalvar2 = document.getElementById("salvar2")
-    btnSalvar2.addEventListener("click", async () => {
+    <script>
+        const baseUrl = `//localhost/projetods2/lib/`
+        onload = async () => {
+            modal2 = new bootstrap.Modal(document.getElementById('exampleModal2'))
+            btnSalvar2 = document.getElementById("salvar2")
+            btnSalvar2.addEventListener("click", async () => {
 
-        const nomecat = document.getElementById("nomecat").value
+                const nomecat = document.getElementById("nomecat").value
 
-        const body = new FormData()
-        body.append('nomecat', nomecat)
+                const body = new FormData()
+                body.append('nomecat', nomecat)
 
-        const response = await fetch(`${baseUrl}addcat.php`, {
-            method: "POST",
-            body
-        })
-        modal2.hide();
-        window.location.href = "categorias.php"
-    })}
-  </script>
+                const response = await fetch(`${baseUrl}addcat.php`, {
+                    method: "POST",
+                    body
+                })
+                modal2.hide();
+                window.location.href = "categorias.php"
+            })
+        }
+    </script>
 </body>
+
 </html>

@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<script type="text/javascript">';
+    echo 'alert("Login necessário");';
+    echo 'window.location.href = "index.php";';
+    echo '</script>';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="PT-br">
 
@@ -18,14 +27,12 @@
 </head>
 
 <body>
-
-    <div class="area"></div>
     <?php include 'navbar.html' ?>
     <div class='inicio'>
         <div class="painel">
             <h1 class="titulo">Painel de controle</h1>
             <div class="teste">
-            <?php
+                <?php
                 include 'lib/stats.php'
                 ?>
                 <h4>Produtos X Categorias</h4>

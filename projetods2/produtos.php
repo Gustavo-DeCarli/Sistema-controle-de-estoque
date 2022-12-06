@@ -1,4 +1,13 @@
-
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    echo '<script type="text/javascript">';
+    echo 'alert("Login necessário");';
+    echo 'window.location.href = "index.php";';
+    echo '</script>';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="PT-br">
 
@@ -56,7 +65,7 @@
                             foreach ($cat as $cats) {
                             ?>
                                 <option value="<?php echo $cats['id'] ?>"><?php echo $cats['nomec'] ?></option>
-                            <?php } ?>                            
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="ms-2 col-auto">
@@ -85,7 +94,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php
+                    <?php
                     if (isset($_GET['pagina'])) {
                         $pagina = $_GET['pagina'];
                         $pc = $pagina;
@@ -137,13 +146,13 @@
                     <?php } ?>
                 </tbody>
                 <tfoot>
-                <tr>
+                    <tr>
                         <?php
                         $tr = $stmt->rowCount();
                         $tp = $tr / $total_reg;
                         $anterior = $pc - 1;
                         $proximo = $pc + 1;
-                        if(isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])){
+                        if (isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])) {
                             $buscacod = $_GET['buscacod'];
                             $busca = $_GET['busca'];
                             $buscacat = $_GET['buscacat'];
@@ -153,17 +162,17 @@
                         if ($pc > 1) {
                             echo "<td class='fot' ></td>";
                             echo "<td class='fot' ></td>";
-                            if(isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])){
-                            echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$anterior&buscacod=$buscacod&busca=$busca&buscacat=$buscacat&per=$per&per2=$per2'>Anterior</a></td>";
-                            }else{
+                            if (isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])) {
+                                echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$anterior&buscacod=$buscacod&busca=$busca&buscacat=$buscacat&per=$per&per2=$per2'>Anterior</a></td>";
+                            } else {
                                 echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$anterior'>Anterior</a></td>";
                             }
                         }
                         if ($pc < $tr) {
-                            if(isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])){
+                            if (isset($_GET['buscacod']) or isset($_GET['buscac']) or isset($_GET['buscacat']) or isset($_GET['per']) or isset($_GET['per2'])) {
                                 echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$proximo&buscacod=$buscacod&busca=$busca&buscacat=$buscacat&per=$per&per2=$per2'>Próxima</a></td>";
-                            }else{
-                                echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$proximo'>Próxima</a></td>";   
+                            } else {
+                                echo "<td class='fot' ><a class='btn btn-success' href='?pagina=$proximo'>Próxima</a></td>";
                             }
                         }
                         ?>
